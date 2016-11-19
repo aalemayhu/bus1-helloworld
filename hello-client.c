@@ -1,36 +1,55 @@
+/*
+ * Copyright (C) 2013-2016 Red Hat, Inc.
+ *
+ * This program is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by the
+ * Free Software Foundation; either version 2.1 of the License, or (at
+ * your option) any later version.
+ */
+
+#include <errno.h>
 #include <linux/bus1.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <stdbool.h>
-#include <string.h>
+#include <sys/ioctl.h>
 
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-
-#define CHAR_DEVICE "/dev/bus1"
+#include "include/helper.h"
 
 int main(int argc, const char *argv[])
 {
-	printf("hello client");
+	struct bus1_cmd_recv cmd_recv;
+	const uint8_t *map1;
+	int timeout_count;
+	int read_count;
+	size_t n_map1;
+	int fd1;
 
-	int peer = open(CHAR_DEVICE, O_RDONLY);
-	if (0 > peer) {
+	printf("hello client\n");
+
+	fd1 = test_open(&map1, &n_map1);
+	printf("fd1=%d\n",fd1);
+	if (0 > fd1) {
 		fprintf(stderr, "failed to open the character device %s\n",
 			CHAR_DEVICE);
 		return EXIT_FAILURE;
 	}
 
-	bool incoming_message = false;
-	while (incoming_message) {
-		char *msg = "";
-		// TODO: Read messages from CHAR_DEVICE
-		if (!strcmp(msg, "quit"))
+	cmd_recv = (struct bus1_cmd_recv){
+		.flags = 0,
+		.max_offset = n_map1,
+	};
+
+	read_count = 0;
+	timeout_count = 0;
+	while (read_count < 10) {
+		if (0 > ioctl(fd1, BUS1_CMD_RECV, &cmd_recv))
+			print_last_ioctl_errno_msg();
+		else
+			read_count++;
+		if (timeout_count++ == 20)
 			break;
-		printf("> %s", msg);
+		sleep(1);
 	}
-	close(peer);
+
+	test_close(fd1, map1, n_map1);
 
 	return EXIT_SUCCESS;
 }
