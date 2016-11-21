@@ -37,7 +37,7 @@ int main(int argc, const char *argv[])
 		.n_fds			= 0,
 	};
 	for (i = 0; i < 10; i++) {
-		if (0 > ioctl(fd1, BUS1_CMD_SEND, &cmd_send))
+		if (0 > bus1_ioctl_send(fd1, &cmd_send))
 			print_last_ioctl_errno_msg();
 		else
 			printf("cmd send\n");

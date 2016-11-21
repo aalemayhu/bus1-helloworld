@@ -18,6 +18,8 @@
 #include <stdint.h>
 #include <unistd.h>
 
+#include "bus1-ioctl.h"
+
 #define CHAR_DEVICE "/dev/bus1"
 
 static inline int test_open(const uint8_t **mapp, size_t *n_mapp)

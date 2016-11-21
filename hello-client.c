@@ -40,7 +40,7 @@ int main(int argc, const char *argv[])
 	read_count = 0;
 	timeout_count = 0;
 	while (read_count < 10) {
-		if (0 > ioctl(fd1, BUS1_CMD_RECV, &cmd_recv))
+		if (0 > bus1_ioctl_recv(fd1, &cmd_recv))
 			print_last_ioctl_errno_msg();
 		else
 			read_count++;
