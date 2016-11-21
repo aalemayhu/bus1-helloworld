@@ -40,8 +40,3 @@ static inline void test_close(int fd, const uint8_t *map, size_t n_map)
 	munmap((void *)map, n_map);
 	close(fd);
 }
-
-void print_last_ioctl_errno_msg() {
-	printf("ioctl failed and returned errno %s \n",
-	       strerror(errno));
-}

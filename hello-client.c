@@ -41,7 +41,7 @@ int main(int argc, const char *argv[])
 	timeout_count = 0;
 	while (read_count < 10) {
 		if (0 > bus1_ioctl_recv(fd1, &cmd_recv))
-			print_last_ioctl_errno_msg();
+			perror("hello-client");
 		else
 			read_count++;
 		if (timeout_count++ == 20)

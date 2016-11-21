@@ -38,7 +38,7 @@ int main(int argc, const char *argv[])
 	};
 	for (i = 0; i < 10; i++) {
 		if (0 > bus1_ioctl_send(fd1, &cmd_send))
-			print_last_ioctl_errno_msg();
+			perror("hello-server");
 		else
 			printf("cmd send\n");
 	}
