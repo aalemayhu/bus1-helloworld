@@ -7,10 +7,6 @@
  * your option) any later version.
  */
 
-#include <errno.h>
-#include <linux/bus1.h>
-#include <sys/ioctl.h>
-
 #include "include/helper.h"
 
 int main(int argc, const char *argv[])
