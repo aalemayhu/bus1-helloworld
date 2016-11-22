@@ -24,6 +24,8 @@
 
 #define CHAR_DEVICE "/dev/bus1"
 
+#define CLIENT_PID_FILE "/tmp/hello-client.pid"
+
 static inline int test_open(const uint8_t **mapp, size_t *n_mapp)
 {
 	const size_t size = 16UL * 1024UL * 1024UL;
