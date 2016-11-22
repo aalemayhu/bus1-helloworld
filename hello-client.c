@@ -28,10 +28,8 @@ int main(int argc, const char *argv[])
 		.max_offset = n_map1,
 	};
 
-	while (0) {
-		if (0 > bus1_ioctl_recv(fd, &cmd_recv))
-			perror("hello-client");
-		else
+	while (1) {
+		if (!bus1_ioctl_recv(fd, &cmd_recv))
 			printf("got %llu bytes", cmd_recv.msg.n_bytes);
 	}
 

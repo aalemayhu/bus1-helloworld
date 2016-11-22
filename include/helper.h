@@ -61,3 +61,12 @@ void must_save_pid(char *path)
 	if(0 > fclose(f))
 		perror("fclose");
 }
+
+void recv_pid(char *path, pid_t *pid)
+{
+  FILE *f = fopen (path, "r");
+  if (f == NULL)
+	  perror("fopen");
+  fscanf (f, "%d", pid);
+  fclose (f);
+}
