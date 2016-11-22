@@ -16,14 +16,8 @@ int main(int argc, const char *argv[])
 	const uint8_t *map1;
 	size_t n_map1;
 	int fd;
-	FILE *f;
 
-	f = fopen(CLIENT_PID_FILE, "w");
-	if (f == NULL)
-		fail("fopen");
-	fprintf(f, "%d", getpid());
-	if(0 > fclose(f))
-		perror("fclose");
+	must_save_pid(CLIENT_PID_FILE);
 
 	fd = test_open(&map1, &n_map1);
 	if (0 > fd)

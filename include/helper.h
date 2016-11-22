@@ -50,3 +50,14 @@ void fail(char *msg)
 	perror(msg);
 	exit(EXIT_FAILURE);
 }
+
+void must_save_pid(char *path)
+{
+	FILE *f;
+	f = fopen(CLIENT_PID_FILE, "w");
+	if (f == NULL)
+		fail("fopen");
+	fprintf(f, "%d", getpid());
+	if(0 > fclose(f))
+		perror("fclose");
+}
