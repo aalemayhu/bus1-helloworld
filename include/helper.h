@@ -7,17 +7,19 @@
  * your option) any later version.
  */
 
+#include <errno.h>
 #include <fcntl.h>
+#include <linux/bus1.h>
 #include <stdbool.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/ioctl.h>
 #include <sys/mman.h>
 #include <sys/stat.h>
 #include <sys/types.h>
-#include <stdint.h>
 #include <unistd.h>
-
 #include "bus1-ioctl.h"
 
 #define CHAR_DEVICE "/dev/bus1"
