@@ -17,8 +17,6 @@ int main(int argc, const char *argv[])
 {
 	struct bus1_cmd_recv cmd_recv;
 	const uint8_t *map1;
-	int timeout_count;
-	int read_count;
 	size_t n_map1;
 	int fd1;
 
@@ -37,16 +35,11 @@ int main(int argc, const char *argv[])
 		.max_offset = n_map1,
 	};
 
-	read_count = 0;
-	timeout_count = 0;
-	while (read_count < 10) {
+	while (1) {
 		if (0 > bus1_ioctl_recv(fd1, &cmd_recv))
 			perror("hello-client");
 		else
-			read_count++;
-		if (timeout_count++ == 20)
-			break;
-		sleep(1);
+			printf("to be implemented");
 	}
 
 	test_close(fd1, map1, n_map1);
