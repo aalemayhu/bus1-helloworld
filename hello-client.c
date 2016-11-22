@@ -15,31 +15,34 @@ int main(int argc, const char *argv[])
 	struct bus1_cmd_recv cmd_recv;
 	const uint8_t *map1;
 	size_t n_map1;
-	int fd1;
+	int fd;
+	FILE *f;
 
-	printf("hello client\n");
+	f = fopen(CLIENT_PID_FILE, "w");
+	if (f == NULL)
+		fail("fopen");
+	fprintf(f, "%d", getpid());
+	if(0 > fclose(f))
+		perror("fclose");
 
-	fd1 = test_open(&map1, &n_map1);
-	printf("fd1=%d\n",fd1);
-	if (0 > fd1) {
-		fprintf(stderr, "failed to open the character device %s\n",
-			CHAR_DEVICE);
-		return EXIT_FAILURE;
-	}
+	fd = test_open(&map1, &n_map1);
+	if (0 > fd)
+		fail("failed to open the character device");
 
 	cmd_recv = (struct bus1_cmd_recv){
 		.flags = 0,
 		.max_offset = n_map1,
 	};
 
-	while (1) {
-		if (0 > bus1_ioctl_recv(fd1, &cmd_recv))
+	while (0) {
+		if (0 > bus1_ioctl_recv(fd, &cmd_recv))
 			perror("hello-client");
 		else
-			printf("to be implemented");
+			printf("got %llu bytes", cmd_recv.msg.n_bytes);
 	}
 
-	test_close(fd1, map1, n_map1);
+	test_close(fd, map1, n_map1);
+	unlink(CLIENT_PID_FILE);
 
 	return EXIT_SUCCESS;
 }
