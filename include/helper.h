@@ -1,3 +1,6 @@
+#ifndef __HELPER_H_H
+#define __HELPER_H_H
+
 /*
  * Copyright (C) 2013-2016 Red Hat, Inc.
  *
@@ -70,3 +73,4 @@ void recv_pid(char *path, pid_t *pid)
   fscanf (f, "%d", pid);
   fclose (f);
 }
+#endif /* __HELPER_H_H */
