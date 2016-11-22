@@ -44,3 +44,9 @@ static inline void test_close(int fd, const uint8_t *map, size_t n_map)
 	munmap((void *)map, n_map);
 	close(fd);
 }
+
+void fail(char *msg)
+{
+	perror(msg);
+	exit(EXIT_FAILURE);
+}
