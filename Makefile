@@ -11,7 +11,7 @@ all: $(PROGS)
 %: %.c ../bus1/usr/include/linux/bus1.h
 	$(CC) $(CFLAGS) $< -o $@
 
-tests:
+t%:
 	tests/run.bash
 
 s: clean 
