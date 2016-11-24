@@ -19,19 +19,17 @@ int main(int argc, const char *argv[])
 	fd = test_open(&map1, &n_map1);
 
 	if (0 > fd)
-		perror("test_open");
+		fail("test_open");
 
 	if (0 > bus1_ioctl_peer_query(fd, &query))
-		perror("bus1_ioctl_peer_query");
-	else {
-		printf("flags = %llu\n", query.flags);
-		printf("peer_flags = %llu\n", query.peer_flags);
-		printf("max_slices = %u\n", query.max_slices);
-		printf("max_handles = %u\n", query.max_handles);
-		printf("max_inflight_bytes = %u\n", query.max_inflight_bytes);
-		printf("max_inflight_fds = %u\n", query.max_inflight_fds);
-	}
+		fail("bus1_ioctl_peer_query");
 
+	printf("flags = %llu\n", query.flags);
+	printf("peer_flags = %llu\n", query.peer_flags);
+	printf("max_slices = %u\n", query.max_slices);
+	printf("max_handles = %u\n", query.max_handles);
+	printf("max_inflight_bytes = %u\n", query.max_inflight_bytes);
+	printf("max_inflight_fds = %u\n", query.max_inflight_fds);
 
 	test_close(fd, map1, n_map1);
 
