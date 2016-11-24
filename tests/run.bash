@@ -1,21 +1,19 @@
 #!/bin/bash
-# Should be in the top level directory!
 
-assert() {
-  program_name=$1
-  actual=`./$1`
-  expected=$2
+source tests/lib.bash
 
-  if [[ $expected != $actual ]]; then
-    echo "$program_name: fail"
-    echo "expected \($expected) got \($actual)"
-  else
-    echo "$program_name: pass"
-  fi
-}
+test_dir="tests"
+
+if [ ! -d $test_dir ]; then
+  echo "error: Should be in the top level directory!"
+  exit
+fi
 
 make clean -s
 make -s
 
-#assert "hello-client" "hello client"
-#assert "hello-server" "hello server"
+for t in $test_dir/test-*
+do
+  echo "$t"
+  $t && pass ok || fail fail
+done
