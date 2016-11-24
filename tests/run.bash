@@ -14,6 +14,6 @@ make -s
 
 for t in $test_dir/test-*
 do
-  echo "$t"
+  echo -n "$t: "
   $t && pass ok || fail fail
 done
