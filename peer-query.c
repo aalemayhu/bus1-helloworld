@@ -21,8 +21,10 @@ int main(int argc, const char *argv[])
 	if (0 > fd)
 		fail("test_open");
 
-	if (0 > bus1_ioctl_peer_query(fd, &query))
+	if (0 > bus1_ioctl_peer_query(fd, &query)) {
+		test_close(fd, map1, n_map1);
 		fail("bus1_ioctl_peer_query");
+	}
 
 	printf("flags = %llu\n", query.flags);
 	printf("peer_flags = %llu\n", query.peer_flags);
