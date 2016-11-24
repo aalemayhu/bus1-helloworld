@@ -14,13 +14,10 @@ int main(int argc, const char *argv[])
 	struct bus1_cmd_send cmd_send;
 	const uint8_t *map1;
 	uint64_t id = 0x100;
-	pid_t client_pid;
 	size_t n_map1;
-	int fd1;
+	int fd;
 
-	recv_pid(CLIENT_PID_FILE, &client_pid);
-
-	fd1 = test_open(&map1, &n_map1);
+	fd = test_open(&map1, &n_map1);
 	cmd_send = (struct bus1_cmd_send){
 		.flags			= 0,
 		.ptr_destinations	= (unsigned long)&id,
@@ -34,11 +31,13 @@ int main(int argc, const char *argv[])
 		.n_fds			= 0,
 	};
 
-	while (1) {
-		if (!bus1_ioctl_send(fd1, &cmd_send))
-			printf("cmd send\n");
-	}
+	// TODO: Wait for client
 
-	test_close(fd1, map1, n_map1);
+	if (!bus1_ioctl_send(fd, &cmd_send))
+		printf("cmd send\n");
+
+	test_close(fd, map1, n_map1);
+
 	return EXIT_SUCCESS;
 }
+
