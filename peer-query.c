@@ -11,14 +11,28 @@
 
 int main(int argc, const char *argv[])
 {
+	struct bus1_cmd_peer_reset query;
 	const uint8_t *map1;
 	size_t n_map1;
 	int fd;
 
 	fd = test_open(&map1, &n_map1);
-	printf("fd=%d\n", fd);
+
 	if (0 > fd)
 		perror("test_open");
+
+	if (0 > bus1_ioctl_peer_query(fd, &query))
+		perror("bus1_ioctl_peer_query");
+	else {
+		printf("flags = %llu\n", query.flags);
+		printf("peer_flags = %llu\n", query.peer_flags);
+		printf("max_slices = %u\n", query.max_slices);
+		printf("max_handles = %u\n", query.max_handles);
+		printf("max_inflight_bytes = %u\n", query.max_inflight_bytes);
+		printf("max_inflight_fds = %u\n", query.max_inflight_fds);
+	}
+
+
 	test_close(fd, map1, n_map1);
 
 	return EXIT_SUCCESS;
