@@ -67,10 +67,32 @@ void must_save_pid(char *path)
 
 void recv_pid(char *path, pid_t *pid)
 {
-  FILE *f = fopen (path, "r");
-  if (f == NULL)
-	  perror("fopen");
-  fscanf (f, "%d", pid);
-  fclose (f);
+	FILE *f = fopen (path, "r");
+	if (f == NULL)
+		perror("fopen");
+	fscanf (f, "%d", pid);
+	fclose (f);
+}
+
+void log_cmd_recv(struct bus1_cmd_recv cmd)
+{
+	printf("struct bus1_cmd_recv {\n");
+	printf("        __u64 flags = %llu\n", cmd.flags);
+	printf("        __u64 max_offset = %llu\n", cmd.max_offset);
+	printf("        struct {\n");
+	printf("                __u64 type = %llu\n", cmd.msg.type);
+	printf("                __u64 flags = %llu\n", cmd.msg.flags);
+	printf("                __u64 destination = %llu\n", cmd.msg.destination);
+	printf("                __u32 uid = %u\n", cmd.msg.uid);
+	printf("                __u32 gid = %u\n", cmd.msg.gid);
+	printf("                __u32 pid = %u\n", cmd.msg.pid);
+	printf("                __u32 tid = %u\n", cmd.msg.tid);
+	printf("                __u64 offset = %llu\n", cmd.msg.offset);
+	printf("                __u64 n_bytes = %llu\n", cmd.msg.n_bytes);
+	printf("                __u64 n_handles = %llu\n", cmd.msg.n_handles);
+	printf("                __u64 n_fds = %llu\n", cmd.msg.n_fds);
+	printf("                __u64 n_secctx = %llu\n", cmd.msg.n_fds);
+	printf("        } msg;\n");
+	printf("};");
 }
 #endif /* __HELPER_H */
