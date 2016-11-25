@@ -12,7 +12,7 @@ all: $(PROGS)
 	$(CC) $(CFLAGS) $< -o $@
 
 t%:
-	tests/run.bash
+	tests/run
 
 s: clean 
 	$(MAKE) all
