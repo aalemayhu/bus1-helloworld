@@ -4,7 +4,7 @@ CFLAGS += -I../bus1/include/uapi/
 CFLAGS += -I../bus1/include/
 CFLAGS += -I../bus1/usr/include/
 
-PROGS := hello-server hello-client peer-query
+PROGS := hello-server hello-client peer-query ping-pong
 
 all: $(PROGS)
 
