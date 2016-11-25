@@ -11,6 +11,8 @@
 
 #include "include/helper.h"
 
+#define BUS1_DEFAULT_SLICES_MAX (16384)
+
 int main(int argc, const char *argv[])
 {
 	char *data = "ping";
@@ -23,6 +25,14 @@ int main(int argc, const char *argv[])
 	size_t n_map;
 
 	ping_count = argc > 1 ? atoi(argv[1]) : 1;
+
+	if (ping_count > BUS1_DEFAULT_SLICES_MAX) {
+		printf("sorry, %d is greater than the default %d.\n",
+		       ping_count, BUS1_DEFAULT_SLICES_MAX);
+		printf("Running it could exhausted your quota.\n");
+		printf("defaulting to 1");
+		ping_count = 1;
+	}
 
 	fd = test_open(&map, &n_map);
 	cmd_send = (struct bus1_cmd_send){
