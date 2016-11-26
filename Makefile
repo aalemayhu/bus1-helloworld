@@ -11,10 +11,10 @@ all: $(PROGS)
 %: %.c ../bus1/usr/include/linux/bus1.h
 	$(CC) $(CFLAGS) $< -o $@
 
-t%:
+te%:
 	tests/run
 
-s: clean 
+tt: clean
 	$(MAKE) all
 
 clean:
