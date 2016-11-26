@@ -1,0 +1,28 @@
+#!/bin/bash
+
+source tests/lib.bash
+program=send-recv-numbers
+expected="BUS1_MSG_DATA
+0
+BUS1_MSG_DATA
+1
+BUS1_MSG_DATA
+2
+BUS1_MSG_DATA
+3
+BUS1_MSG_DATA
+4
+BUS1_MSG_DATA
+5
+BUS1_MSG_DATA
+6
+BUS1_MSG_DATA
+7
+BUS1_MSG_DATA
+8
+BUS1_MSG_DATA
+9
+BUS1_MSG_DATA
+10"
+
+assert $program  "$expected"
