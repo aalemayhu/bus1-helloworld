@@ -23,6 +23,7 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <unistd.h>
+#include <signal.h>
 #include "bus1-ioctl.h"
 
 #define CHAR_DEVICE "/dev/bus1"
@@ -112,5 +113,18 @@ void log_msg_type(struct bus1_cmd_recv cmd)
 		printf("BUS1_MSG_NODE_DESTROY\n");
 	if (BUS1_MSG_NODE_RELEASE == type)
 		printf("BUS1_MSG_NODE_RELEASE\n");
+}
+
+static void signal_handler(int s)
+{
+	printf("Got signal: %d, which means we waited too long.", s);
+	exit(EXIT_FAILURE);
+}
+
+static inline void set_alarm(int seconds)
+{
+	signal(SIGALRM, signal_handler);
+	alarm(2);
+
 }
 #endif /* __HELPER_H */
