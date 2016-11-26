@@ -29,17 +29,22 @@
 
 #define CLIENT_PID_FILE "/tmp/hello-client.pid"
 
-static inline int test_open(const uint8_t **mapp, size_t *n_mapp)
+static inline int helper_open(char *path, const uint8_t **mapp, size_t *n_mapp)
 {
 	const size_t size = 16UL * 1024UL * 1024UL;
 	int fd;
 
-	fd = open(CHAR_DEVICE, O_RDWR | O_CLOEXEC | O_NONBLOCK | O_NOCTTY);
+	fd = open(path, O_RDWR | O_CLOEXEC | O_NONBLOCK | O_NOCTTY);
 
-	*mapp = mmap(NULL, size, PROT_READ, MAP_SHARED, fd, 0);
+	*mapp = mmap(NULL, size, PROT_READ, MAP_PRIVATE, fd, 0);
 
 	*n_mapp = size;
 	return fd;
+}
+
+static inline int test_open(const uint8_t **mapp, size_t *n_mapp)
+{
+	return helper_open(CHAR_DEVICE, mapp, n_mapp);
 }
 
 static inline void test_close(int fd, const uint8_t *map, size_t n_map)
