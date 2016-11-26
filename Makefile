@@ -15,7 +15,7 @@ te%:
 	tests/run
 
 tt: clean
-	$(MAKE) all
+	$(MAKE) test
 
 clean:
 	$(RM) $(PROGS)
