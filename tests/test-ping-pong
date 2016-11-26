@@ -2,7 +2,8 @@
 
 source tests/lib.bash
 program=ping-pong
-expected="ping
+expected="BUS1_MSG_DATA
+ping
 pong"
 
 assert $program  "$expected"

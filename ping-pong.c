@@ -54,6 +54,7 @@ int main(int argc, const char *argv[])
 	while (bus1_ioctl_recv(fd, &cmd_recv) != -EAGAIN
 	       || ping_count > 0) {
 		char *msg_data = (char *)map + cmd_recv.msg.offset;
+		log_msg_type(cmd_recv);
 		printf("%s\n", msg_data);
 
 		if (!strcmp(msg_data, "ping")) {
