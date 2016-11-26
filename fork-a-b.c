@@ -13,6 +13,8 @@
 
 #include <linux/bus1.h>
 
+#include "include/helper.h"
+
 int main()
 {
 	const size_t n_map = 16UL * 1024UL * 1024UL;
@@ -40,6 +42,7 @@ int main()
 
 			  if (0 > ioctl(fd, BUS1_CMD_RECV, &cmd_recv))
 				  perror("bus1_ioctl_recv");
+			  log_msg_type(cmd_recv);
 
 			  printf("%s\n", (char *)map + cmd_recv.msg.offset);
 		  }

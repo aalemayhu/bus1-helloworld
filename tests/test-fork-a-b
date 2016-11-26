@@ -2,7 +2,9 @@
 
 source tests/lib.bash
 program=fork-a-b
-expected="a
+expected="BUS1_MSG_DATA
+a
+BUS1_MSG_DATA
 b"
 
 assert $program  "$expected"
