@@ -100,4 +100,17 @@ void log_cmd_recv(struct bus1_cmd_recv cmd)
 	printf("        } msg;\n");
 	printf("};");
 }
+
+void log_msg_type(struct bus1_cmd_recv cmd)
+{
+	uint64_t type = cmd.msg.type;
+	if (BUS1_MSG_NONE == type)
+		printf("BUS1_MSG_NONE\n");
+	else if (BUS1_MSG_DATA == type)
+		printf("BUS1_MSG_DATA\n");
+	if (BUS1_MSG_NODE_DESTROY == type)
+		printf("BUS1_MSG_NODE_DESTROY\n");
+	if (BUS1_MSG_NODE_RELEASE == type)
+		printf("BUS1_MSG_NODE_RELEASE\n");
+}
 #endif /* __HELPER_H */
