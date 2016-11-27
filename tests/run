@@ -15,5 +15,5 @@ make -s
 for t in $test_dir/test-*
 do
   echo -n "$t: "
-  $t && pass ok || fail fail
+  $t && pass || fail
 done

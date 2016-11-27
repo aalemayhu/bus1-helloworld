@@ -17,11 +17,11 @@ assert() {
 }
 
 fail() {
-  text=$1
+  text=FAILED
   echo "${red}${text}${reset}"
 }
 
 pass() {
-  text=$1
+  text=PASS
   echo "${green}${text}${reset}"
 }
