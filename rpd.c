@@ -1,5 +1,5 @@
 /*
- * Open some imgur links from a subreddit.
+ * Open image links from a subreddit.
  *
  * Using bus1 to communicate between the processes.  The URLs fetched from
  * Reddit are sent as messages in the child process and read by the parent. The
@@ -48,7 +48,7 @@ int main(int argc, char **argv)
 	char *subreddit;
 	int r, fd;
 
-	subreddit = argc > 1 ? argv[1] : "pics";
+	subreddit = argc > 1 ? argv[1] : "cats";
 
 	char url[strlen(subreddit)+strlen(URL_FORMAT)];
 	sprintf(url, URL_FORMAT, subreddit);
@@ -96,6 +96,12 @@ int open_links(int fd, const uint8_t *map, size_t n_map)
 			continue;
 		msg = (char *)map + cmd_recv.msg.offset;
 	} while (cmd_recv.msg.type != BUS1_MSG_DATA);
+
+	if (!strcmp(msg, "error")) {
+		printf("%s: %s\n", __func__, msg);
+		return EXIT_FAILURE;
+	}
+
 	count = atoi(msg);
 	printf("will read %d messages\n",
 	       count);
@@ -114,8 +120,9 @@ int open_links(int fd, const uint8_t *map, size_t n_map)
 
 		char *url = (char *)map + cmd_recv.msg.offset;
 
-		if (strstr(url, "imgur") == NULL) {
-			printf("does not contain imgur will skip: %s\n", url);
+		if (strstr(url, "imgur") == NULL
+		    && strstr(url, ".png") == NULL) {
+			printf("does not contain imgur or .png will skip: %s\n", url);
 			continue;
 		}
 
@@ -123,6 +130,7 @@ int open_links(int fd, const uint8_t *map, size_t n_map)
 		char *prefix = "xdg-open ";
 		char cmd[strlen(prefix) + strlen(url) + strlen(suffix)];
 		sprintf(cmd, "%s '%s' %s", prefix, url, suffix);
+		printf("system(\"%s\")\n", cmd);
 		system(cmd);
 	}
 
@@ -138,8 +146,10 @@ int fetch_links(int fd, uint64_t id, char *url)
 	size_t i, count;
 
 	text = request(url);
-	if(!text)
+	if(!text) {
+		bus1_send_string(fd, id, "error");
 		return EXIT_FAILURE;
+	}
 
 	root = json_loads(text, 0, &error);
 	free(text);
