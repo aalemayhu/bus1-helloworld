@@ -25,7 +25,6 @@
 
 #define SIZE (16UL * 1024UL * 1024UL)
 #define BUFFER_SIZE  (1024 * 1024)
-#define IMAGE_DIR "/tmp/"
 #define URL_FORMAT "https://www.reddit.com/r/%s/.json"
 
 int bus1_send_string(int fd, uint64_t id, char *msg);
