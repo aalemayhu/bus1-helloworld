@@ -3,12 +3,15 @@ CFLAGS += -D_FILE_OFFSET_BITS=64 -Wall -g -O2
 CFLAGS += -I../bus1/include/uapi/
 CFLAGS += -I../bus1/include/
 CFLAGS += -I../bus1/usr/include/
+CFLAGS += -ljansson
+CFLAGS += -lcurl
 
 PROGS := peer-query 			\
 	 ping-pong  			\
 	 fork-a-b   			\
 	 send-recv-numbers 		\
-	 send-recv-numbers
+	 send-recv-numbers		\
+	 rpd
 
 all: $(PROGS)
 
