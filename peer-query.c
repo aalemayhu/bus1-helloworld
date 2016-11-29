@@ -35,6 +35,9 @@ int main(int argc, const char *argv[])
 		goto error;
 	}
 
+	query = (struct bus1_cmd_peer_reset){
+		.flags			= 0,
+	};
 	if (0 > ioctl(fd, BUS1_CMD_PEER_QUERY, &query)) {
 		perror("bus1_ioctl_peer_query");
 		munmap((void *)map, size);
