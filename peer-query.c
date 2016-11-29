@@ -7,23 +7,39 @@
  * your option) any later version.
  */
 
-#include "include/helper.h"
+#include <fcntl.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <stdint.h>
+#include <sys/mman.h>
+#include <sys/ioctl.h>
+#include <unistd.h>
+
+#include <linux/bus1.h>
 
 int main(int argc, const char *argv[])
 {
 	struct bus1_cmd_peer_reset query;
-	const uint8_t *map1;
-	size_t n_map1;
+	const uint8_t *map;
+	size_t size;
 	int fd;
 
-	fd = test_open(&map1, &n_map1);
+	size = 16UL * 1024UL * 1024UL;
+	fd = open("/dev/bus1", O_RDWR | O_CLOEXEC | O_NONBLOCK | O_NOCTTY);
+	map = mmap(NULL, size, PROT_READ, MAP_PRIVATE, fd, 0);
 
-	if (0 > fd)
-		fail("test_open");
+	if (0 > fd) {
+		perror("test_open");
+		goto error;
+	}
 
-	if (0 > bus1_ioctl_peer_query(fd, &query)) {
-		test_close(fd, map1, n_map1);
-		fail("bus1_ioctl_peer_query");
+	if (0 > ioctl(fd, BUS1_CMD_PEER_QUERY, &query)) {
+		perror("bus1_ioctl_peer_query");
+		munmap((void *)map, size);
+		close(fd);
+		goto error;
 	}
 
 	printf("flags = %llu\n", query.flags);
@@ -33,8 +49,12 @@ int main(int argc, const char *argv[])
 	printf("max_inflight_bytes = %u\n", query.max_inflight_bytes);
 	printf("max_inflight_fds = %u\n", query.max_inflight_fds);
 
-	test_close(fd, map1, n_map1);
+	munmap((void *)map, size);
+	close(fd);
 
 	return EXIT_SUCCESS;
+
+error:
+	return EXIT_FAILURE;
 }
 
