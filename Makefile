@@ -4,7 +4,12 @@ CFLAGS += -I../bus1/include/uapi/
 CFLAGS += -I../bus1/include/
 CFLAGS += -I../bus1/usr/include/
 
-PROGS := peer-query ping-pong fork-a-b send-recv-numbers send-recv-numbers
+PROGS := peer-query 			\
+	 ping-pong  			\
+	 fork-a-b   			\
+	 send-recv-numbers 		\
+	 send-recv-numbers
+
 all: $(PROGS)
 
 %: %.c ../bus1/usr/include/linux/bus1.h
