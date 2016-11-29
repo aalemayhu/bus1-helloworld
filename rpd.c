@@ -29,7 +29,7 @@
 
 int bus1_send_string(int fd, uint64_t id, char *msg);
 
-int open_reddit_links(int fd, const uint8_t *map, size_t n_map);
+int open_links(int fd, const uint8_t *map, size_t n_map);
 int fetch_links(int fd, uint64_t id, char *url);
 
 static size_t write_res(void *ptr, size_t size, size_t nmemb, void *stream);
@@ -68,7 +68,7 @@ int main(int argc, char **argv)
 			perror("fetch_links");
 		break;
 	default:
-		r = open_reddit_links(fd, map, n_map);
+		r = open_links(fd, map, n_map);
 		break;
 	}
 
@@ -78,7 +78,7 @@ int main(int argc, char **argv)
 	return r;
 }
 
-int open_reddit_links(int fd, const uint8_t *map, size_t n_map)
+int open_links(int fd, const uint8_t *map, size_t n_map)
 {
 	struct bus1_cmd_recv cmd_recv;
 	int count, read_count;
@@ -126,7 +126,7 @@ int open_reddit_links(int fd, const uint8_t *map, size_t n_map)
 		system(cmd);
 	}
 
-	printf("open_reddit_links END\n");
+	printf("open_links END\n");
 	return EXIT_SUCCESS;
 }
 
