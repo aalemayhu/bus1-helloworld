@@ -28,12 +28,12 @@ int main(int argc, const char *argv[])
 
 	size = 16UL * 1024UL * 1024UL;
 	fd = open("/dev/bus1", O_RDWR | O_CLOEXEC | O_NONBLOCK | O_NOCTTY);
-	map = mmap(NULL, size, PROT_READ, MAP_PRIVATE, fd, 0);
-
 	if (0 > fd) {
 		perror("test_open");
 		goto error;
 	}
+
+	map = mmap(NULL, size, PROT_READ, MAP_PRIVATE, fd, 0);
 
 	query = (struct bus1_cmd_peer_reset){
 		.flags			= 0,
