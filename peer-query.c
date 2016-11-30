@@ -60,4 +60,3 @@ int main(int argc, const char *argv[])
 error:
 	return EXIT_FAILURE;
 }
-
