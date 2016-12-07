@@ -5,6 +5,7 @@ A small collection of programs using bus1.
 ### Fedora
 
     dnf install -y git kernel-devel-`uname -r` gcc
+    dnf install -y jansson-devel libcurl-devel
 
 ### Debian
 
