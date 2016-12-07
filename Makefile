@@ -11,7 +11,6 @@ PROGS := peer-query 			\
 	 ping-pong  			\
 	 fork-a-b   			\
 	 send-recv-numbers 		\
-	 send-recv-numbers		\
 	 rpd
 
 all: $(PROGS)
