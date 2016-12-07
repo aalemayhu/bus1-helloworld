@@ -1,6 +1,6 @@
 # bus1-helloworld
 
-WIP: A simple example project for a bus1 project.
+A small collection of programs using bus1.
 
 ## Setup
 
