@@ -5,6 +5,7 @@ CFLAGS += -I../bus1/include/
 CFLAGS += -I../bus1/usr/include/
 CFLAGS += -ljansson
 CFLAGS += -lcurl
+CONTAINER_NAME=scanf/bus1-helloworld
 
 PROGS := peer-query 			\
 	 ping-pong  			\
@@ -26,5 +27,14 @@ tt: clean
 
 clean:
 	$(RM) $(PROGS)
+
+container:
+	docker build -t ${CONTAINER_NAME} .
+container_deploy: container push_hub
+	echo "Pushed to docker"
+container_run: container
+	docker run -t -i scanf/config-files /bin/bash
+container_push:
+	docker push ${CONTAINER_NAME}
 
 .PHONY: tests
