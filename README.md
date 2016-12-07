@@ -25,9 +25,14 @@ TODO: fill out
 - [rpd][rpd] - use reddit api to fetch links and open them.
 - [send-recv-numbers][send-recv-numbers] - send more messages.
 
-TODO: daemon
-TODO: independent-process
+<hr>
 
+- TODO: daemon
+- TODO: independent-process
+- TODO: three peers
+- TODO: use [BUS1_RECV_FLAG_PEEK][0]
+
+[0]: https://github.com/bus1/bus1/search?utf8=%E2%9C%93&q=BUS1_RECV_FLAG_PEEK
 [fork-a-b]: ./fork-a-b.c
 [peer-query]: ./peer-query.c
 [ping-pong]: ./ping-pong.c
