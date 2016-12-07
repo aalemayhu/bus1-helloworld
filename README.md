@@ -1,5 +1,3 @@
-# bus1-helloworld
-
 A small collection of programs using bus1.
 
 ## Setup
