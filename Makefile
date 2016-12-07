@@ -30,7 +30,7 @@ clean:
 
 container:
 	docker build -t ${CONTAINER_NAME} .
-container_deploy: container push_hub
+container_deploy: container container_push
 	echo "Pushed to docker"
 container_run: container
 	docker run -t -i ${CONTAINER_NAME} /bin/bash
