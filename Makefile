@@ -33,7 +33,7 @@ container:
 container_deploy: container push_hub
 	echo "Pushed to docker"
 container_run: container
-	docker run -t -i scanf/config-files /bin/bash
+	docker run -t -i ${CONTAINER_NAME} /bin/bash
 container_push:
 	docker push ${CONTAINER_NAME}
 
