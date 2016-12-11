@@ -25,13 +25,13 @@ TODO: fill out
 - [ping-pong][ping-pong] - send and receive message in the same process.
 - [rpd][rpd] - use reddit api to fetch links and open them.
 - [send-recv-numbers][send-recv-numbers] - send more messages.
+- [peek][peek] - peek message.
 
 <hr>
 
 - TODO: daemon
 - TODO: independent-process
 - TODO: three peers
-- TODO: use [BUS1_RECV_FLAG_PEEK][0]
 
 [0]: https://github.com/bus1/bus1/search?utf8=%E2%9C%93&q=BUS1_RECV_FLAG_PEEK
 [fork-a-b]: ./fork-a-b.c
@@ -39,3 +39,4 @@ TODO: fill out
 [ping-pong]: ./ping-pong.c
 [rpd]: ./rpd.c
 [send-recv-numbers]: ./send-recv-numbers.c
+[peek]: ./peek.c
