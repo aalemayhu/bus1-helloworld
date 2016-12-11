@@ -5,7 +5,6 @@ program=peek
 expected="BUS1_MSG_DATA
 BUS1_MSG_NONE
 BUS1_MSG_DATA
-BUS1_MSG_DATA
-"
+BUS1_MSG_DATA"
 
 assert $program  "$expected"
