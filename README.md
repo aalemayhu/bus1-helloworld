@@ -9,7 +9,11 @@ A small collection of programs using bus1.
 
 ### Debian
 
-TODO: fill out
+    apt-get update
+    apt-get install -y git build-essential linux-headers-$(uname -r)
+    apt-get install -y libjansson-dev libcurl4-gnutls-dev
+
+The depending on which kernel you have, you might experience errors.
 
 ### Installing bus1
 
