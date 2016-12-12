@@ -13,7 +13,9 @@ A small collection of programs using bus1.
     apt-get install -y git build-essential linux-headers-$(uname -r)
     apt-get install -y libjansson-dev libcurl4-gnutls-dev
 
-The depending on which kernel you have, you might experience errors.
+Depending on which kernel you have and library versions, you might experience
+errors triggered by outdated versions. The recipe above has been tested with
+kernel (4.9.0) and gcc (Debian 6.2.1-5).
 
 ### Installing bus1
 
