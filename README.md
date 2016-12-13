@@ -39,6 +39,21 @@ kernel (4.9.0) and gcc (Debian 6.2.1-5).
 - TODO: independent-process
 - TODO: three peers
 
+## External Dependencies
+
+- [Jansson](https://jansson.readthedocs.io/en/2.9/)
+- [libcurl](https://curl.haxx.se/libcurl/)
+
+## Reading Material
+
+- [Bus1: a new Linux interprocess communication proposal](https://lwn.net/Articles/697191/)
+- [Ksummit-discuss](https://lists.linuxfoundation.org/pipermail/ksummit-discuss/2016-July/003047.html)
+- [Playing with Bus1](http://blog.peter-b.co.uk/2016/10/playing-with-bus1.html)
+- [RFC v1](http://lkml.iu.edu/hypermail/linux/kernel/1610.3/02995.html)
+- [The Internal Bus1 API](http://www.bus1.org/bus1.kernel-api.html)
+- [bus1 — Kernel Message Bus](http://www.bus1.org/bus1.html)
+- [bus1/documentation/wiki](https://github.com/bus1/documentation/wiki)
+
 [0]: https://github.com/bus1/bus1/search?utf8=%E2%9C%93&q=BUS1_RECV_FLAG_PEEK
 [fork-a-b]: ./fork-a-b.c
 [peer-query]: ./peer-query.c
