@@ -2,6 +2,11 @@ A small collection of programs using bus1.
 
 ## Setup
 
+Other than the regular developer tools the only extra dependencies are
+[Jansson](https://jansson.readthedocs.io/en/2.9/) and
+[libcurl](https://curl.haxx.se/libcurl/). The below recipe should cover the
+requirements to build the examples.
+
 ### Fedora
 
     dnf install -y git kernel-devel-`uname -r` gcc
@@ -38,11 +43,6 @@ kernel (4.9.0) and gcc (Debian 6.2.1-5).
 - TODO: daemon
 - TODO: independent-process
 - TODO: three peers
-
-## External Dependencies
-
-- [Jansson](https://jansson.readthedocs.io/en/2.9/)
-- [libcurl](https://curl.haxx.se/libcurl/)
 
 ## Reading Material
 
