@@ -1,8 +1,8 @@
 CC = $(CROSS_COMPILE)gcc
 CFLAGS += -D_FILE_OFFSET_BITS=64 -Wall -g -O2
-CFLAGS += -I../bus1/include/uapi/
-CFLAGS += -I../bus1/include/
-CFLAGS += -I../bus1/usr/include/
+CFLAGS += -I../../bus1/include/uapi/
+CFLAGS += -I../../bus1/include/
+CFLAGS += -I../../bus1/usr/include/
 CFLAGS += -ljansson
 CFLAGS += -lcurl
 CONTAINER_NAME=scanf/bus1-helloworld
@@ -16,7 +16,7 @@ PROGS := peer-query 			\
 
 all: $(PROGS)
 
-%: %.c ../bus1/usr/include/linux/bus1.h
+%: %.c
 	$(CC) $(CFLAGS) $< -o $@
 
 te%:
