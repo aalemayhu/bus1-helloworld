@@ -1,5 +1,5 @@
 /*
- * Open image links from a subreddit.
+ * Open links from a subreddit.
  *
  * Using bus1 to communicate between the processes.  The URLs fetched from
  * Reddit are sent as messages in the child process and read by the parent. The
@@ -119,12 +119,6 @@ int open_links(int fd, const uint8_t *map, size_t n_map)
 		read_count++;
 
 		char *url = (char *)map + cmd_recv.msg.offset;
-
-		if (strstr(url, "imgur") == NULL
-		    && strstr(url, ".png") == NULL) {
-			printf("does not contain imgur or .png will skip: %s\n", url);
-			continue;
-		}
 
 		char  *suffix = " > /dev/null 2>/dev/null";
 		char *prefix = "xdg-open ";
