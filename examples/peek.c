@@ -1,6 +1,15 @@
+#include <assert.h>
+#include <errno.h>
+#include <fcntl.h>
+#include <inttypes.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <sys/ioctl.h>
+#include <sys/mman.h>
+#include <sys/types.h>
+#include <unistd.h>
 
-#include "include/helper.h"
+#include <linux/bus1.h>
 
 struct peer_context {
 	const uint8_t *map;
@@ -25,7 +34,7 @@ int send_empty_msg(struct peer_context *context)
 		.n_fds			= 0,
 	};
 
-	return bus1_ioctl_send(context->fd, &cmd_send);
+	return ioctl(context->fd, BUS1_CMD_SEND, &cmd_send);
 }
 
 int recv_emtpy_msg(struct peer_context *context, struct bus1_cmd_recv *cmd_recv,
@@ -35,7 +44,7 @@ int recv_emtpy_msg(struct peer_context *context, struct bus1_cmd_recv *cmd_recv,
 		.flags = flags,
 		.max_offset = context->n_map,
 	};
-	return bus1_ioctl_recv(context->fd, cmd_recv);
+	return ioctl(context->fd, BUS1_CMD_RECV, cmd_recv);
 }
 
 int main(int argc, const char *argv[])
@@ -43,7 +52,9 @@ int main(int argc, const char *argv[])
         struct bus1_cmd_recv cmd_recv;
 	struct peer_context *context = malloc(sizeof *context);
 
-	context->fd = test_open(&context->map, &context->n_map);
+	context->fd = open("/dev/bus1", O_RDWR | O_CLOEXEC | O_NONBLOCK | O_NOCTTY);
+	context->n_map = 1024;
+	context->map = mmap(NULL, context->n_map, PROT_READ, MAP_PRIVATE, context->fd, 0);
 
 	if (0 > context->fd) {
 		perror("open");
@@ -53,21 +64,26 @@ int main(int argc, const char *argv[])
 	// BUS1_MSG_DATA
 	assert(!send_empty_msg(context));
 	assert(!recv_emtpy_msg(context, &cmd_recv, 0));
-	log_msg_type(cmd_recv);
+	if (BUS1_MSG_DATA == cmd_recv.msg.type)
+		printf("BUS1_MSG_DATA\n");
 
 
 	// BUS1_MSG_NONE
 	assert(recv_emtpy_msg(context, &cmd_recv, 0));
-	log_msg_type(cmd_recv);
+	if (BUS1_MSG_NONE == cmd_recv.msg.type)
+		printf("BUS1_MSG_NONE\n");
 
 	// BUS1_MSG_DATA
 	assert(!send_empty_msg(context));
 	assert(!recv_emtpy_msg(context, &cmd_recv, BUS1_RECV_FLAG_PEEK));
-	log_msg_type(cmd_recv);
+	if (BUS1_MSG_DATA == cmd_recv.msg.type)
+		printf("BUS1_MSG_DATA\n");
 	assert(!recv_emtpy_msg(context, &cmd_recv, 0));
-	log_msg_type(cmd_recv);
+	if (BUS1_MSG_DATA == cmd_recv.msg.type)
+		printf("BUS1_MSG_DATA\n");
 
-	test_close(context->fd, context->map, context->n_map);
+	munmap((void *)context->map, context->n_map);
+	close(context->fd);
 	free(context);
 	return EXIT_SUCCESS;
 

@@ -1,4 +1,18 @@
-#include "include/helper.h"
+#include <errno.h>
+#include <fcntl.h>
+#include <inttypes.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/ioctl.h>
+#include <sys/mman.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <sys/uio.h>
+#include <unistd.h>
+
+#include <linux/bus1.h>
+
 
 int main(int argc, const char *argv[])
 {
@@ -7,12 +21,11 @@ int main(int argc, const char *argv[])
 	struct bus1_cmd_recv cmd_recv;
 	uint64_t id = 0x100;
 	const uint8_t *map;
-	size_t size;
-
-	set_alarm(3);
+	const size_t size = 16UL * 1024UL * 1024UL;
 
 	expected = argc > 1 ? atoi(argv[1]) : 11;
-	fd = test_open(&map, &size);
+	fd = open("/dev/bus1", O_RDWR | O_CLOEXEC | O_NONBLOCK | O_NOCTTY);
+	map = mmap(NULL, size, PROT_READ, MAP_PRIVATE, fd, 0);
 	read_count = 0;
 
 	if (0 > fd)
@@ -29,7 +42,8 @@ int main(int argc, const char *argv[])
 			  if (ioctl(fd, BUS1_CMD_RECV, &cmd_recv) == -EAGAIN)
 				  continue;
 			  read_count++;
-			  log_msg_type(cmd_recv);
+			  if (BUS1_MSG_DATA == cmd_recv.msg.type)
+				  printf("BUS1_MSG_DATA\n");
 			  printf("%s\n", (char *)map + cmd_recv.msg.offset);
 		  }
 		  break;
@@ -50,7 +64,8 @@ int main(int argc, const char *argv[])
 		  break;
 	}
 
-	test_close(fd, map, size);
+	munmap((void *)map, size);
+	close(fd);
 
 	return EXIT_SUCCESS;
 }

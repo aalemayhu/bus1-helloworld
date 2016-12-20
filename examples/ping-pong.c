@@ -7,9 +7,20 @@
  * your option) any later version.
  */
 
-#include <pthread.h>
+#include <errno.h>
+#include <fcntl.h>
+#include <inttypes.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/ioctl.h>
+#include <sys/mman.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <sys/uio.h>
+#include <unistd.h>
 
-#include "include/helper.h"
+#include <linux/bus1.h>
 
 #define BUS1_DEFAULT_SLICES_MAX (16384)
 
@@ -22,7 +33,7 @@ int main(int argc, const char *argv[])
 	int fd, ping_count, i;
 	uint64_t id = 0x100;
 	const uint8_t *map;
-	size_t n_map;
+	const size_t n_map = 16UL * 1024UL * 1024UL;
 
 	ping_count = argc > 1 ? atoi(argv[1]) : 1;
 
@@ -34,7 +45,8 @@ int main(int argc, const char *argv[])
 		ping_count = 1;
 	}
 
-	fd = test_open(&map, &n_map);
+	fd = open("/dev/bus1", O_RDWR | O_CLOEXEC | O_NONBLOCK | O_NOCTTY);
+	map = mmap(NULL, n_map, PROT_READ, MAP_PRIVATE, fd, 0);
 	cmd_send = (struct bus1_cmd_send){
 		.ptr_destinations	= (unsigned long)&id,
 		.n_destinations		= 1,
@@ -43,18 +55,22 @@ int main(int argc, const char *argv[])
 	};
 
 	for (i = 0; i < ping_count; i++) {
-		if (bus1_ioctl_send(fd, &cmd_send))
-			fail("bus1_ioctl_send");
+		if (!ioctl(fd, BUS1_CMD_SEND, &cmd_send))
+			continue;
+		perror("bus1_ioctl_send");
+		exit(EXIT_FAILURE);
 	}
 
 	cmd_recv = (struct bus1_cmd_recv){
 		.flags = 0,
 		.max_offset = n_map,
 	};
-	while (bus1_ioctl_recv(fd, &cmd_recv) != -EAGAIN
-	       || ping_count > 0) {
+	while (ioctl(fd, BUS1_CMD_RECV, &cmd_recv) != -EAGAIN && ping_count > 0) {
+		if (BUS1_MSG_DATA == cmd_recv.msg.type)
+			printf("BUS1_MSG_DATA\n");
+		else
+			break;
 		char *msg_data = (char *)map + cmd_recv.msg.offset;
-		log_msg_type(cmd_recv);
 		printf("%s\n", msg_data);
 
 		if (!strcmp(msg_data, "ping")) {
@@ -63,7 +79,8 @@ int main(int argc, const char *argv[])
 		}
 	}
 
-	test_close(fd, map, n_map);
+	munmap((void *)map, n_map);
+	close(fd);
 
 	return EXIT_SUCCESS;
 }
