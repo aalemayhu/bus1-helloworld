@@ -37,6 +37,7 @@ kernel (4.9.0) and gcc (Debian 6.2.1-5).
 - [rpd][rpd] - use reddit api to fetch links and open them.
 - [send-recv-numbers][send-recv-numbers] - send more messages.
 - [peek][peek] - peek message.
+- [print-cmds][print-cmds] - print out the bus1 specific commands.
 
 <hr>
 
@@ -61,3 +62,4 @@ kernel (4.9.0) and gcc (Debian 6.2.1-5).
 [rpd]: ./examples/rpd.c
 [send-recv-numbers]: ./examples/send-recv-numbers.c
 [peek]: ./examples/peek.c
+[print-cmds]: ./examples/print-cmds.c
