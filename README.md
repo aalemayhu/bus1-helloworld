@@ -31,12 +31,12 @@ kernel (4.9.0) and gcc (Debian 6.2.1-5).
 
 ## Examples
 
-- [fork-a-b][examples/fork-a-b] - sending message from parent and receiving message in child.
-- [peer-query][examples/peer-query] - reset a peer context.
-- [ping-pong][examples/ping-pong] - send and receive message in the same process.
-- [rpd][examples/rpd] - use reddit api to fetch links and open them.
-- [send-recv-numbers][examples/send-recv-numbers] - send more messages.
-- [peek][examples/peek] - peek message.
+- [fork-a-b][fork-a-b] - sending message from parent and receiving message in child.
+- [peer-query][peer-query] - reset a peer context.
+- [ping-pong][ping-pong] - send and receive message in the same process.
+- [rpd][rpd] - use reddit api to fetch links and open them.
+- [send-recv-numbers][send-recv-numbers] - send more messages.
+- [peek][peek] - peek message.
 
 <hr>
 
@@ -55,9 +55,9 @@ kernel (4.9.0) and gcc (Debian 6.2.1-5).
 - [bus1/documentation/wiki](https://github.com/bus1/documentation/wiki)
 
 [0]: https://github.com/bus1/bus1/search?utf8=%E2%9C%93&q=BUS1_RECV_FLAG_PEEK
-[fork-a-b]: ./fork-a-b.c
-[peer-query]: ./peer-query.c
-[ping-pong]: ./ping-pong.c
-[rpd]: ./rpd.c
-[send-recv-numbers]: ./send-recv-numbers.c
-[peek]: ./peek.c
+[fork-a-b]: ./examples/fork-a-b.c
+[peer-query]: ./examples/peer-query.c
+[ping-pong]: ./examples/ping-pong.c
+[rpd]: ./examples/rpd.c
+[send-recv-numbers]: ./examples/send-recv-numbers.c
+[peek]: ./examples/peek.c
