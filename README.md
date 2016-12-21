@@ -45,7 +45,9 @@ kernel (4.9.0) and gcc (Debian 6.2.1-5).
 - TODO: independent-process
 - TODO: three peers
 
-## Reading Material
+## Resources
+
+### Reading Material
 
 - [Bus1: a new Linux interprocess communication proposal](https://lwn.net/Articles/697191/)
 - [Ksummit-discuss](https://lists.linuxfoundation.org/pipermail/ksummit-discuss/2016-July/003047.html)
@@ -55,7 +57,7 @@ kernel (4.9.0) and gcc (Debian 6.2.1-5).
 - [bus1 — Kernel Message Bus](http://www.bus1.org/bus1.html)
 - [bus1/documentation/wiki](https://github.com/bus1/documentation/wiki)
 
-## Presentations
+### Presentations
 
 - David Herrmann: Capability-based IPC on Linux, [Video](https://www.youtube.com/watch?v=6zN0b6BfgLY)
 - David Herrmann and Tom Gundersen: Capability-based IPC on Linux, [Slides](http://linuxplumbersconf.org/2016/ocw//system/presentations/3819/original/bus3.pdf)
