@@ -55,6 +55,11 @@ kernel (4.9.0) and gcc (Debian 6.2.1-5).
 - [bus1 — Kernel Message Bus](http://www.bus1.org/bus1.html)
 - [bus1/documentation/wiki](https://github.com/bus1/documentation/wiki)
 
+## Presentations
+
+- David Herrmann: Capability-based IPC on Linux, [Video](https://www.youtube.com/watch?v=6zN0b6BfgLY)
+- David Herrmann and Tom Gundersen: Capability-based IPC on Linux, [Slides](http://linuxplumbersconf.org/2016/ocw//system/presentations/3819/original/bus3.pdf)
+
 [0]: https://github.com/bus1/bus1/search?utf8=%E2%9C%93&q=BUS1_RECV_FLAG_PEEK
 [fork-a-b]: ./examples/fork-a-b.c
 [peer-query]: ./examples/peer-query.c
