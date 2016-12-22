@@ -29,22 +29,6 @@ kernel (4.9.0) and gcc (Debian 6.2.1-5).
     make tt # You need enough priviliges to install the module
     cd -
 
-## Examples
-
-- [fork-a-b][fork-a-b] - sending message from parent and receiving message in child.
-- [peer-query][peer-query] - reset a peer context.
-- [ping-pong][ping-pong] - send and receive message in the same process.
-- [rpd][rpd] - use reddit api to fetch links and open them.
-- [send-recv-numbers][send-recv-numbers] - send more messages.
-- [peek][peek] - peek message.
-- [print-cmds][print-cmds] - print out the bus1 specific commands.
-
-<hr>
-
-- TODO: daemon
-- TODO: independent-process
-- TODO: three peers
-
 ## Resources
 
 ### Reading Material
@@ -61,11 +45,3 @@ kernel (4.9.0) and gcc (Debian 6.2.1-5).
 
 - David Herrmann: Capability-based IPC on Linux, [Video](https://www.youtube.com/watch?v=6zN0b6BfgLY)
 - David Herrmann and Tom Gundersen: Capability-based IPC on Linux, [Slides](http://linuxplumbersconf.org/2016/ocw//system/presentations/3819/original/bus3.pdf)
-
-[fork-a-b]: ./examples/fork-a-b.c
-[peer-query]: ./examples/peer-query.c
-[ping-pong]: ./examples/ping-pong.c
-[rpd]: ./examples/rpd.c
-[send-recv-numbers]: ./examples/send-recv-numbers.c
-[peek]: ./examples/peek.c
-[print-cmds]: ./examples/print-cmds.c
