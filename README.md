@@ -1,6 +1,6 @@
 A small collection of programs using bus1.
 
-See [Setup][./Setup.md] for installing the required dependencies.
+See [Setup](./Setup.md) for installing the required dependencies.
 
 # Resources
 
