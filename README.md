@@ -16,8 +16,8 @@ See [Setup](./Setup.md) for installing the required dependencies.
 
 ## Presentations
 
-- David Herrmann: Capability-based IPC on Linux, [Video](https://www.youtube.com/watch?v=6zN0b6BfgLY)
-- David Herrmann and Tom Gundersen: Capability-based IPC on Linux, [Slides](http://linuxplumbersconf.org/2016/ocw//system/presentations/3819/original/bus3.pdf)
+- systemd.conf 2016, David Herrmann: Capability-based IPC on Linux, [Video](https://www.youtube.com/watch?v=6zN0b6BfgLY)
+- Linux Plumbers Conference 2016, David Herrmann and Tom Gundersen: Capability-based IPC on Linux, [Slides](http://linuxplumbersconf.org/2016/ocw//system/presentations/3819/original/bus3.pdf)
 
 ## Podcasts
 
