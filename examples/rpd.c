@@ -11,11 +11,12 @@
 #include <errno.h>
 #include <fcntl.h>
 #include <inttypes.h>
+#include <stdbool.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <sys/ioctl.h>
 #include <sys/mman.h>
-#include <sys/types.h>
 #include <sys/types.h>
 #include <unistd.h>
 
@@ -34,6 +35,8 @@ int fetch_links(int fd, uint64_t id, char *url);
 
 static size_t write_res(void *ptr, size_t size, size_t nmemb, void *stream);
 static char *request(const char *url);
+char *strip_amp(const char *url);
+
 
 struct write_result {
 	char *data;
@@ -117,8 +120,12 @@ int open_links(int fd, const uint8_t *map, size_t n_map)
 		if (cmd_recv.msg.type == BUS1_MSG_NONE)
 			continue;
 		read_count++;
-
-		char *url = (char *)map + cmd_recv.msg.offset;
+		char *msg = strdup((char *)map + cmd_recv.msg.offset);
+		if (msg == NULL) {
+			perror("strdup");
+			return EXIT_FAILURE;
+		}
+		char *url = strip_amp(msg);
 
 		char  *suffix = " > /dev/null 2>/dev/null";
 		char *prefix = "xdg-open ";
@@ -291,4 +298,25 @@ error:
 		curl_slist_free_all(headers);
 	curl_global_cleanup();
 	return NULL;
+}
+
+char *strip_amp(const char *url)
+{
+        char *new_url;
+        int i, j, url_len;
+
+        url_len = strlen(url);
+        new_url = malloc(url_len * sizeof(char));
+
+        for (i = 0, j = 0; i < url_len; i++, j++) {
+                if (url[i] == '&' && url[i+1] == 'a' && url[i+2] == 'm' &&
+                    url[i+3] == 'p' && url[i+4] == ';') {
+                        new_url[j] = '&';
+                        i += 4;
+                        continue;
+                }
+                new_url[j] = url[i];
+        }
+        new_url[j] = '\0';
+        return new_url;
 }
