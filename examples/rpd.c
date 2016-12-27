@@ -49,7 +49,7 @@ int main(int argc, char **argv)
 	uint64_t id = 0x100;
 	const uint8_t *map;
 	char *subreddit;
-	int r, fd;
+	int fd;
 
 	subreddit = argc > 1 ? argv[1] : "cats";
 
@@ -62,30 +62,28 @@ int main(int argc, char **argv)
 	if (0 > fd)
 		perror("test_open");
 
-	r = EXIT_SUCCESS;
-
 	switch (fork()) {
 	case 0:
-		r = fetch_links(fd, id, url);
-		if (r != EXIT_SUCCESS)
+		if (fetch_links(fd, id, url) != EXIT_SUCCESS)
 			perror("fetch_links");
 		break;
 	default:
-		r = open_links(fd, map, n_map);
+		if (open_links(fd, map, n_map) != EXIT_SUCCESS)
+			perror("open_links");
 		break;
 	}
 
 	munmap((void *)map, n_map);
 	close(fd);
 
-	return r;
+	return EXIT_SUCCESS;
 }
 
 int open_links(int fd, const uint8_t *map, size_t n_map)
 {
 	struct bus1_cmd_recv cmd_recv;
 	int count, read_count;
-	char *msg;
+	char *msg = "";
 
 	// First message should tell us how many links we will be reading.
 	do {
@@ -133,6 +131,8 @@ int open_links(int fd, const uint8_t *map, size_t n_map)
 		sprintf(cmd, "%s '%s' %s", prefix, url, suffix);
 		printf("system(\"%s\")\n", cmd);
 		system(cmd);
+		if (!url)
+			free(url);
 	}
 
 	printf("open_links END\n");
