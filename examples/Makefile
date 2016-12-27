@@ -20,6 +20,9 @@ all: $(PROGS)
 %: %.c
 	$(CC) $(CFLAGS) $< -o $@
 
+analyze:
+	clang $(CFLAGS) --analyze *.c
+
 te%:
 	tests/run
 
