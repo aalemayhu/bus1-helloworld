@@ -8,3 +8,4 @@ send-recv-numbers
 rpd
 peek
 print-cmds
+*.plist
