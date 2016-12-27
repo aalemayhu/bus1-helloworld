@@ -58,6 +58,7 @@ int main(int argc, const char *argv[])
 
 	if (0 > context->fd) {
 		perror("open");
+		free(context);
 		goto error;
 	}
 
