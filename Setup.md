@@ -36,3 +36,8 @@ you have ssh access you can compile with:
     export SRC_DIR=/src/github.com/scanf
     make -C $SRC_DIR/bus1 tt
     make -C $SRC_DIR/bus1-helloworld/examples tt
+
+If you have any issues consider first reading [Try Fedora in the cloud for free
+with Dply](https://fedoramagazine.org/try-fedora-cloud-free-dply/).  The
+article has a visual walk-through step by step on using Dply. If that does not
+help, please open a [issue](https://github.com/scanf/bus1-helloworld/issues).
