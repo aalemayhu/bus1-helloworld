@@ -30,7 +30,7 @@ kernel (4.9.0) and gcc (Debian 6.2.1-5).
 If you are not interested in running on bare metal up or just want a test bed.
 The nice folks at [Dply](https://dply.co/) offer free VPS for 2 hours. Bus1
 compiles with their Fedora 25 image. You can preconfigure a instance with
-[][![Dply](https://dply.co/b.svg)](https://dply.co/b/0eFTNyjS). Then after
+[![Dply](https://dply.co/b.svg)](https://dply.co/b/0eFTNyjS). Then after
 you have ssh access you can compile with:
 
     export SRC_DIR=/src/github.com/scanf
