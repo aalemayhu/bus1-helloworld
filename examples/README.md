@@ -3,7 +3,6 @@
 - [ping-pong][ping-pong] - send and receive message in the same process.
 - [rpd][rpd] - use reddit api to fetch links and open them.
 - [send-recv-numbers][send-recv-numbers] - send more messages.
-- [peek][peek] - peek message.
 - [print-cmds][print-cmds] - print out the bus1 specific commands.
 
 <hr>
@@ -17,5 +16,4 @@
 [ping-pong]: ./ping-pong.c
 [rpd]: ./rpd.c
 [send-recv-numbers]: ./send-recv-numbers.c
-[peek]: ./peek.c
 [print-cmds]: ./print-cmds.c
