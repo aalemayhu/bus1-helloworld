@@ -8,6 +8,7 @@ CFLAGS += -lcurl
 CONTAINER_NAME=scanf/bus1-helloworld
 BUS1_REPO ?=https://github.com/bus1/bus1
 BUS1_DIR ?=../../bus1
+BUS1_CHAR_DEV ?=/dev/bus1
 
 PROGS := peer-query 			\
 	 ping-pong  			\
@@ -30,6 +31,10 @@ te%:
 tt: clean
 	if ! test -d $(BUS1_DIR); then \
 	  git clone $(BUS1_REPO) $(BUS1_DIR); \
+	fi
+	if ! test -d $(BUS1_CHAR_DEV); then \
+	  make -C $(BUS1_DIR) clean ; \
+	  make -C $(BUS1_DIR) tt ; \
 	fi
 	$(MAKE) test
 
