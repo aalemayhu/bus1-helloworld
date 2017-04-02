@@ -1,13 +1,13 @@
 CC = $(CROSS_COMPILE)gcc
+BUS1_DIR ?=../../bus1
 CFLAGS += -D_FILE_OFFSET_BITS=64 -Wall -g -O2
-CFLAGS += -I../../bus1/include/uapi/
-CFLAGS += -I../../bus1/include/
-CFLAGS += -I../../bus1/usr/include/
+CFLAGS += -I${BUS1_DIR}/include/uapi/
+CFLAGS += -I${BUS1_DIR}/include/
+CFLAGS += -I${BUS1_DIR}/usr/include/
 CFLAGS += -ljansson
 CFLAGS += -lcurl
 CONTAINER_NAME=scanf/bus1-helloworld
 BUS1_REPO ?=https://github.com/bus1/bus1
-BUS1_DIR ?=../../bus1
 BUS1_CHAR_DEV ?=/dev/bus1
 
 PROGS := peer-query 			\
